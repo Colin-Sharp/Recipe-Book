@@ -1,0 +1,49 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a routerLink="/" class="navbar-brand">Recipe Book</a>
+      <button
+        class="navbar-toggle"
+        type="button"
+        (click)="onToggle()"
+      >
+        <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
+      </button>
+    </div>
+
+    <div class="navbar-collapse" [ngClass]="{collapse: !collapse}">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+          <a [routerLink]="['/recipes']" *ngIf="isAuthenticated">Recipes</a>
+        </li>
+        <li routerLinkActive="active">
+          <a [routerLink]="['/auth']" *ngIf="!isAuthenticated">Authenticate</a>
+        </li>
+        <li routerLinkActive="active">
+          <a [routerLink]="['/shopping-list']">Shopping List</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a
+            style="cursor: pointer;"
+            *ngIf="isAuthenticated"
+            (click)="onLogout()"
+            >Logout</a
+          >
+        </li>
+        <li class="dropdown" appDropdown *ngIf="isAuthenticated">
+          <a class="dropdown-toggle" role="button"
+            >Manage <span class="caret"></span
+          ></a>
+          <ul class="dropdown-menu">
+            <li><a style="cursor: pointer;" (click)="onSaveData()">Save</a></li>
+            <li>
+              <a style="cursor: pointer;" (click)="onFeatchData()">Featch</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
