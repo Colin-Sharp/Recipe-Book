@@ -1,13 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'
+import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from 'src/components/shared/shared.module';
 import { CoreModule } from './core.module';
-import { LoggingService } from './logging.service';
+import { shopppingListReducer } from 'src/components/shopping/store/shopping-list.reducer';
+
+
 
 
 @NgModule({
@@ -19,8 +22,9 @@ import { LoggingService } from './logging.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    StoreModule.forRoot({shoppingList: shopppingListReducer}),
     SharedModule,
-    CoreModule,
+    CoreModule
    
   ],
   bootstrap: [AppComponent],
