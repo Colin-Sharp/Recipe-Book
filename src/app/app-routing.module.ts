@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const appRoutes: Routes = [
-  { path: "", redirectTo: "recipes", pathMatch: "full" },
-  {path: 'recipes', loadChildren : ()=> import('../components/recipes/recipes.module').then(m => m.RecipesModule)},
+  { path: '', redirectTo: 'recipes', pathMatch: 'full' },
+  {path: 'recipes', loadChildren : () => import('../components/recipes/recipes.module').then(m => m.RecipesModule)},
   {path: 'shopping-list', loadChildren: () => import('../components/shopping/shopping.module').then(m => m.ShoppingModule)},
   {path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)}
 ];
