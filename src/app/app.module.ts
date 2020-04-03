@@ -9,6 +9,12 @@ import { HeaderComponent } from './header/header.component';
 import { SharedModule } from 'src/components/shared/shared.module';
 import { CoreModule } from './core.module';
 import * as fromApp from './store/app.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {AuthEffects} from './auth/store/auth.effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {RecipeEffects} from '../components/recipes/store/recipe.effects';
 
 
 @NgModule({
@@ -21,8 +27,11 @@ import * as fromApp from './store/app.reducer';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([AuthEffects, RecipeEffects]),
     SharedModule,
-    CoreModule
+    CoreModule,
+    StoreDevtoolsModule.instrument({logOnly: environment.production}),
+    StoreRouterConnectingModule.forRoot()
   ],
   bootstrap: [AppComponent],
   // providers: [LoggingService]

@@ -1,11 +1,14 @@
-import { Recipe } from "./recipe.model";
-import { Injectable } from "@angular/core";
-import { Ingredient } from '../shared/ingredient.model';
-import { ShoppingListService } from '../shopping/shopping-list/shopping-list.service';
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-// import { DataStorageService } from '../shared/data-storage.service';
-import * as ShoppingListActions from '../shopping/store/shopping-list.actions'
 import { Store } from '@ngrx/store';
+
+import { Ingredient } from '../shared/ingredient.model';
+import { Recipe } from './recipe.model';
+// import { DataStorageService } from '../shared/data-storage.service';
+import * as ShoppingListActions from '../shopping/store/shopping-list.actions';
+import * as fromShoppingList from '../../components/shopping/store/shopping-list.reducer';
+import * as fromApp from '../../app/store/app.reducer';
+
 
 @Injectable()
 export class RecipeService {
@@ -33,11 +36,11 @@ export class RecipeService {
   // ];
   private recipes: Recipe[] = [];
 
-  constructor(private shoppingListService: ShoppingListService, private store: Store<{ ingredients: Ingredient[]}>) { }
+  constructor( private store: Store<fromApp.AppState>) { }
 
-  setRecipes(recipes: Recipe[]){
-    this.recipes = recipes
-    this.recipesChange.next(this.recipes.slice())
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChange.next(this.recipes.slice());
   }
 
   getRecipes() {
@@ -48,7 +51,7 @@ export class RecipeService {
   }
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
     // this.shoppingListService.addIngredients(ingredient);
-    this.store.dispatch(new ShoppingListActions.AddIngredients(ingredients))
+    this.store.dispatch(new ShoppingListActions.AddIngredients(ingredients));
   }
   addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
@@ -59,8 +62,8 @@ export class RecipeService {
     this.recipes[index] = newRecipe;
     this.recipesChange.next(this.recipes.slice());
   }
-  deleteRecipe(index: number){
+  deleteRecipe(index: number) {
      this.recipes.splice(index, 1);
-     this.recipesChange.next(this.recipes.slice())
+     this.recipesChange.next(this.recipes.slice());
   }
 }
